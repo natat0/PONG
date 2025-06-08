@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
+
 public class myPong extends Application {
     private double y1 = 300, y2 = 300; //paddle locations
     private double dy = Math.random()*3 + 5, dx = 5, bX = 486, bY = 327, ballSpeed = 1; //initial location of ball, speed of ball & change in ball speed
@@ -66,16 +67,16 @@ public class myPong extends Application {
 
 
         Image background = loadImage("/images/background.png");
-        if (background != null) { //checking is background image is loaded successfully
+        if (background != null) {
             gc.drawImage(background, 0, 100);
-        }else { //If not set a default background
+        }else {
             scene.setFill(Color.BLACK);
         }
 
         Image p1 = loadImage("/images/player1.png");
-        if (p1 != null) { //checking if image loaded
+        if (p1 != null) {
             gc.drawImage(p1, 0, 0);
-        }else {          //if not setting default text to replace
+        }else {
             gc.setFont(Font.font("Arial", FontWeight.BLACK, 60));
             gc.fillText("P1:", 1 ,60 );
         }
@@ -136,7 +137,7 @@ public class myPong extends Application {
         root.getChildren().addAll( canvas, ball, p1Rect, p2Rect);
 
         stage.setTitle("MY PONG!");
-        Image icon = loadImage("/images/AllenPan.png");
+        Image icon = loadImage("/images/background.png");
         if (icon != null) {stage.getIcons().add(icon);}
         stage.setScene(scene);
         stage.setResizable(false);
@@ -184,15 +185,15 @@ public class myPong extends Application {
                 p1Rect.relocate(10, y1);
                 p2Rect.relocate(970, y2);
 
-                //checking if ball touches paddle
                 if (p1Rect.getBoundsInParent().intersects(ball.getBoundsInParent())){
-                    new Thread(runBounce).start(); //playing bounce noise
-                    dx = -dx; //changing direction of horizontal velocity
+                    new Thread(runBounce).start();
+                    dx = -dx;
                     bX = p1Rect.getX() + p1Rect.getWidth() + ball.getRadius() + 5;
-                    if (ballSpeed + 0.3 < 4.1) ballSpeed+=0.3; //increasing ball speed after each hit
+                    if (ballSpeed + 0.3 < 4.1) ballSpeed+=0.3;
                 }
                 if (p2Rect.getBoundsInParent().intersects(ball.getBoundsInParent())){
                     new Thread(runBounce).start();
+
                     dx=-dx;
                     bX = 970 - ball.getRadius() - p2Rect.getWidth() - 5;
                     if (ballSpeed + 0.3 < 4.1) ballSpeed+=0.3;
@@ -202,6 +203,7 @@ public class myPong extends Application {
         }.start();
     }
     public static void main(String[] args){launch(args);}
+
     private Image loadImage(String name) {
         try {
             URL playerImageUrl = getClass().getResource(name);
